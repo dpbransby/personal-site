@@ -106,10 +106,22 @@
     /* ── HERO ─────────────────────────────────────────────────── */
     #hero {
       min-height: 100vh;
-      background: var(--navy);
-      display: flex; align-items: center;
+      background-color: var(--navy);
+      background-image: 
+        linear-gradient(
+          to right,
+          rgba(15,23,42,.98) 0%,
+          rgba(15,23,42,.85) 100%
+        ),
+        url('hero-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
       padding: 0 3rem;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
 
     #hero::before {
@@ -756,8 +768,8 @@
     <div class="about-grid">
 
       <div class="about-copy reveal">
-        <p>I started my career as an engineer, trained to solve problems as engineers
-           do — through systems, data, and process. As a consultant, I led engagements
+        <p>I started my career as an engineer, trained to solve problems with logic, data, 
+           and process. As a consultant, I led engagements
            focused on improving performance — retooling systems, rethinking operations,
            and partnering with executives to deliver change. I built new lines of
            revenue, managed teams, and learned to move between the boardroom and the
@@ -796,18 +808,10 @@
             <span>Photo 2</span>
             <span style="font-size:.6rem; opacity:.5;">Fieldwork / research</span>
           </div>
-
-          <!--
-            PHOTO 3 — Replace with:
             <img src="photo-candid.jpg"
                  alt="Derrick Bransby"
                  class="about-photo-secondary" />
-          -->
-          <div class="about-photo-placeholder-sm">
-            <span style="font-size:1.1rem; opacity:.2;">⬜</span>
-            <span>Photo 3</span>
-            <span style="font-size:.6rem; opacity:.5;">Speaking / candid</span>
-          </div>
+        
 
         </div>
       </div>
@@ -1122,14 +1126,14 @@
         <div class="contact-links">
 
           <!-- TODO: replace with your actual LinkedIn URL -->
-          <a href="https://linkedin.com/in/yourprofile"
+          <a href="https://www.linkedin.com/in/dpbransby/"
              class="c-link" target="_blank" rel="noopener noreferrer">
             <div class="c-icon">in</div>
             LinkedIn
           </a>
 
           <!-- TODO: replace with your actual Google Scholar URL -->
-          <a href="https://scholar.google.com/citations?user=XXXXXXX"
+          <a href="https://scholar.google.com/citations?user=H7whhqcAAAAJ"
              class="c-link" target="_blank" rel="noopener noreferrer">
             <div class="c-icon">GS</div>
             Google Scholar
@@ -1139,7 +1143,7 @@
       </div>
 
       <form class="contact-form reveal" id="contactForm"
-            action="#" method="POST">
+            action="https://formspree.io/f/xwvwrrkp" method="POST">
         <div class="form-field">
           <label for="cf-name">Name</label>
           <input type="text"  id="cf-name"  name="name"
@@ -1202,15 +1206,6 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  /* Demo form handler — DELETE once you configure Formspree */
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('cf-name').value;
-    alert(`Thanks, ${name}! Your message has been received. I'll be in touch soon.`);
-    this.reset();
-  });
 </script>
-
 </body>
 </html>
