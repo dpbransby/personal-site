@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Derrick Bransby</title>
+  <meta name="description" content="Derrick Bransby – Strategy and Operations. PhD Candidate at Harvard Business School." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & TOKENS ─────────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --navy:    #0F172A;
+      --blue:    #3B82F6;
+      --blue-dk: #2563EB;
+      --text:    #334155;
+      --muted:   #64748B;
+      --border:  #E2E8F0;
+      --bg-alt:  #F8FAFC;
+      --white:   #FFFFFF;
+      --serif:   'Playfair Display', Georgia, serif;
+      --sans:    'Inter', system-ui, sans-serif;
+      --max:     960px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    #nav {
+      position: fixed; top:0; left:0; right:0; z-index:1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      transition: background .35s, padding .3s, box-shadow .3s;
+    }
+
+    #nav.scrolled {
+      background: rgba(15,23,42,.96);
+      backdrop-filter: blur(12px);
+      padding: 1rem 3rem;
+      box-shadow: 0 2px 30px rgba(0,0,0,.25);
+    }
+
+    /* Logo: uses currentColor so it inherits white from the link */
+    .nav-logo {
+      color: var(--white);
+      text-decoration: none;
+      display: flex; align-items: center;
+      transition: opacity .2s;
+    }
+    .nav-logo:hover { opacity: .55; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      transition: color .2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--blue);
+      transition: width .3s;
+    }
+
+    .nav-links a:hover         { color: var(--white); }
+    .nav-links a:hover::after  { width: 100%; }
+
+    .nav-burger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; z-index: 1001;
+    }
+
+    .nav-burger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white);
+      transition: transform .3s, opacity .3s;
+    }
+
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 0 3rem;
+      position: relative; overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute; top: -30%; right: -15%;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute; bottom: -20%; left: -10%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max); margin: 0 auto; width: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .75rem;
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 2px;
+      background: var(--blue); flex-shrink: 0;
+    }
+
+    /* Adjusted size: tagline is more words than a single name */
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 800; color: var(--white);
+      line-height: 1.1; margin-bottom: 1.75rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-weight: 300; color: rgba(255,255,255,.6);
+      line-height: 1.8; max-width: 580px;
+      padding-left: 1.25rem;
+      border-left: 3px solid var(--blue);
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ─── BUTTONS ────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: .85rem 2.25rem;
+      font-family: var(--sans);
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: background .25s, border-color .25s, color .25s,
+                  transform .25s, box-shadow .25s;
+    }
+
+    .btn-solid { background: var(--blue); color: var(--white); }
+    .btn-solid:hover {
+      background: var(--blue-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59,130,246,.4);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      border: 1.5px solid rgba(255,255,255,.25);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,.7);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ─── SECTION SHELL ──────────────────────────────────────── */
+    .section       { padding: 7rem 3rem; }
+    .section-inner { max-width: var(--max); margin: 0 auto; }
+
+    .section-label {
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.15; margin-bottom: 3rem;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────────── */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .about-copy p {
+      font-size: 1rem; color: var(--text);
+      line-height: 1.85; margin-bottom: 1.25rem;
+    }
+    .about-copy p:last-child { margin-bottom: 0; }
+
+    .about-stats { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .stat {
+      padding-left: 1.25rem;
+      border-left: 3px solid var(--blue);
+    }
+
+    .stat-val {
+      font-family: var(--serif);
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--navy); line-height: 1;
+      margin-bottom: .25rem;
+    }
+
+    .stat-lbl {
+      font-size: .85rem; color: var(--muted); font-weight: 500;
+    }
+
+    /* ─── EXPERIENCE ─────────────────────────────────────────── */
+    #experience { background: var(--bg-alt); }
+
+    .exp-list { display: flex; flex-direction: column; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 3rem;
+      padding: 2.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-period {
+      font-size: .82rem; color: var(--muted);
+      font-weight: 500; margin-bottom: .4rem;
+    }
+
+    .exp-org {
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .exp-role {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--navy); margin-bottom: .6rem;
+    }
+
+    .exp-desc {
+      font-size: .93rem; color: var(--text);
+      line-height: 1.75; margin-bottom: 1rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+
+    .tag {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .28rem .75rem;
+      background: #EFF6FF; color: var(--blue);
+    }
+
+    /* ─── RESEARCH ───────────────────────────────────────────── */
+    #research { background: var(--white); }
+
+    .research-intro {
+      font-size: 1rem; color: var(--text);
+      line-height: 1.85; max-width: 680px;
+      margin-bottom: 3.5rem;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .r-card {
+      border: 1.5px solid var(--border);
+      padding: 2rem; cursor: default;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .r-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(59,130,246,.1);
+    }
+
+    .r-type {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: .7rem;
+    }
+
+    .r-title {
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--navy); line-height: 1.3;
+      margin-bottom: .7rem;
+    }
+
+    .r-desc {
+      font-size: .875rem; color: var(--muted); line-height: 1.65;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────────── */
+    #contact { background: var(--navy); }
+    #contact .section-title { color: var(--white); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+
+    .contact-copy p {
+      color: rgba(255,255,255,.6);
+      font-size: 1rem; line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .c-link {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none;
+      color: rgba(255,255,255,.65); font-size: .9rem;
+      transition: color .2s;
+    }
+    .c-link:hover { color: var(--white); }
+
+    .c-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      transition: border-color .2s, background .2s;
+    }
+    .c-link:hover .c-icon {
+      border-color: var(--blue);
+      background: rgba(59,130,246,.12);
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+
+    .form-field label {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.38);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--white);
+      padding: .85rem 1rem;
+      font-family: var(--sans); font-size: .9rem;
+      outline: none; width: 100%;
+      transition: border-color .2s, background .2s;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(255,255,255,.2); }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--blue);
+      background: rgba(59,130,246,.04);
+    }
+
+    .form-field textarea { resize: vertical; min-height: 130px; }
+
+    .btn-send {
+      background: var(--blue); color: var(--white); border: none;
+      padding: .9rem 2.25rem;
+      font-family: var(--sans); font-size: .78rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      cursor: pointer; align-self: flex-start;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-send:hover {
+      background: var(--blue-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59,130,246,.35);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    #footer {
+      background: #060C18;
+      padding: 2rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .footer-name {
+      font-family: var(--serif);
+      color: rgba(255,255,255,.3); font-size: 1rem;
+    }
+
+    .footer-note {
+      font-size: .75rem; color: rgba(255,255,255,.22); letter-spacing: .04em;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      #nav          { padding: 1.25rem 1.5rem; }
+      #nav.scrolled { padding: .9rem 1.5rem; }
+
+      .nav-links {
+        display: none;
+        position: fixed; inset: 0;
+        background: var(--navy);
+        flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 2.5rem; z-index: 999;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a    { font-size: 1rem; }
+      .nav-burger     { display: flex; }
+
+      .section  { padding: 5rem 1.5rem; }
+      #hero     { padding: 0 1.5rem; }
+
+      .about-grid,
+      .contact-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+      .research-grid { grid-template-columns: 1fr; }
+      .exp-item      { grid-template-columns: 1fr; gap: .5rem; }
+
+      #footer {
+        flex-direction: column; gap: .5rem;
+        text-align: center; padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ NAV -->
+<nav id="nav">
+
+  <a href="#hero" class="nav-logo" aria-label="Derrick Bransby – home">
+    <!--
+      dpb mark — d, p, and b are the same shape (vertical stem +
+      semicircular bowl) oriented differently:
+        d  =  b mirrored horizontally  (bowl flips left)
+        p  =  b mirrored vertically    (bowl moves to upper half)
+
+      Each arc is a perfect semicircle: chord = 8px, radius = 4px.
+      sweep=1 (clockwise)  → bowl opens RIGHT  (p, b)
+      sweep=0 (counter-CW) → bowl opens LEFT   (d)
+    -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="-1 -1 44 19" width="42" height="17"
+         aria-hidden="true">
+      <g stroke="currentColor" stroke-width="2.2"
+         fill="none" stroke-linecap="round">
+
+        <!-- d : stem RIGHT (x=11), bowl opens LEFT, lower half -->
+        <line x1="11" y1="0"  x2="11" y2="17"/>
+        <path d="M11,7 A4,4,0,0,0,11,15"/>
+
+        <!-- p : stem LEFT  (x=21), bowl opens RIGHT, upper half -->
+        <line x1="21" y1="0"  x2="21" y2="17"/>
+        <path d="M21,2 A4,4,0,0,1,21,10"/>
+
+        <!-- b : stem LEFT  (x=35), bowl opens RIGHT, lower half -->
+        <line x1="35" y1="0"  x2="35" y2="17"/>
+        <path d="M35,7 A4,4,0,0,1,35,15"/>
+
+      </g>
+    </svg>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about"      onclick="closeNav()">About</a></li>
+    <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+    <li><a href="#research"   onclick="closeNav()">Research</a></li>
+    <li><a href="#contact"    onclick="closeNav()">Contact</a></li>
+  </ul>
+
+  <div class="nav-burger" id="navBurger"
+       onclick="toggleNav()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════ HERO -->
+<section id="hero">
+  <div class="hero-inner">
+
+    <p class="hero-eyebrow">
+      Derrick P. Bransby &middot; PhD Candidate, Harvard Business School
+    </p>
+
+    <h1 class="hero-name">
+      Bridging how work<br>
+      is <i>designed</i> with<br>
+      how it gets done.
+    </h1>
+
+    <p class="hero-tagline">
+      I study how teams perform under pressure — and I've spent a career
+      helping organizations do it better. My work connects strategy,
+      operations, and the team dynamics that drive execution.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#about"   class="btn btn-solid">My Story</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ ABOUT -->
+<section id="about" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">About</p>
+    <h2 class="section-title reveal">Strategy meets execution.</h2>
+
+    <div class="about-grid">
+
+      <div class="about-copy reveal">
+        <p>My experience bridges <b>strategy and operations</b>. Before enrolling at Harvard,
+           I spent eight years in consulting — leading engagements focused on improving
+           performance rethinking work systems and how teams operate within them.</p>
+        <p>I've built new lines of revenue, managed teams, and partnered closely with
+           executives to deliver change. That work taught me to move between
+           the boardroom and the front line — to see problems as they're defined at the
+           top and as they're lived day to day.</p>
+        <p>At HBS, my research focuses on <b>how teams perform under pressure</b>, examining
+           the interpersonal and organizational dynamics that drive execution and
+           problem solving. I enjoy immersing myself in the organizations I 
+           study, producing insights steeped in practice.</p>
+        <p>This combination of experience has honed my ability to <b>diagnosis operational
+           challenges and intervene productively</b> — connecting how work is designed with
+           how it actually gets done.</p>
+      </div>
+
+      <div class="about-stats reveal">
+        <div class="stat">
+          <div class="stat-val">8+</div>
+          <div class="stat-lbl">Years in Management Consulting</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">HBS</div>
+          <div class="stat-lbl">PhD Candidate, Harvard Business School</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">Now</div>
+          <div class="stat-lbl">Pursuing Strategy &amp; Business Operations Roles</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">A career built on impact.</h2>
+
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">2021 – Present</div>
+          <div class="exp-org">Harvard Business School</div>
+        </div>
+        <div>
+          <div class="exp-role">PhD Candidate</div>
+          <p class="exp-desc">
+            Conducting fieldwork-based research on team performance, organizational
+            dynamics, and execution under pressure. Producing writing and insights
+            grounded in practice, often from within the teams and organizations studied.
+          </p>
+          <div class="tags">
+            <span class="tag">Organizational Behavior</span>
+            <span class="tag">Team Dynamics</span>
+            <span class="tag">Field Research</span>
+            <span class="tag">Qualitative Methods</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-period">2013 – 2021</div>
+          <div class="exp-org">Management & <br> Operations Consulting</div>
+        </div>
+        <div>
+          <div class="exp-role">Various Roles</div>
+          <p class="exp-desc">
+            Led client engagements focused on performance improvement and organizational
+            change. Built new lines of revenue, managed teams, and partnered with senior
+            executives to deliver lasting results.
+          </p>
+          <div class="tags">
+            <span class="tag">Strategy</span>
+            <span class="tag">Operations</span>
+            <span class="tag">Change Management</span>
+            <span class="tag">Executive Engagement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-org">Education</div>
+        </div>
+        <div>
+          <div class="exp-role">MBA &middot; Johns Hopkins Carey Business School</div>
+          <div class="exp-role">BS, Industrial Engineering &middot; University of Pittsburgh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ RESEARCH -->
+<section id="research" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Research</p>
+    <h2 class="section-title reveal">How teams perform under pressure.</h2>
+    <p class="research-intro reveal">
+      My research sits at the intersection of organizational behavior and operations.
+      I study how teams navigate high-stakes, time-pressured work — examining the
+      interpersonal and structural dynamics that shape whether they succeed or fall
+      short. I prefer being close to the work: embedded in the organizations I study.
+    </p>
+
+    <div class="research-grid">
+
+      <div class="r-card reveal">
+        <div class="r-type">Working Paper</div>
+        <div class="r-title">[Research Project Title]</div>
+        <p class="r-desc">[Brief description — key argument, context, or finding.]</p>
+      </div>
+
+      <div class="r-card reveal">
+        <div class="r-type">Field Study</div>
+        <div class="r-title">[Research Project Title]</div>
+        <p class="r-desc">[Brief description — key argument, context, or finding.]</p>
+      </div>
+
+      <div class="r-card reveal">
+        <div class="r-type">Case Study</div>
+        <div class="r-title">[Research Project Title]</div>
+        <p class="r-desc">[Brief description — key argument, context, or finding.]</p>
+      </div>
+
+      <div class="r-card reveal">
+        <div class="r-type">Essay</div>
+        <div class="r-title">[Writing / Essay Title]</div>
+        <p class="r-desc">[Brief description — argument, publication, or context.]</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ CONTACT -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">Let's talk.</h2>
+
+    <div class="contact-grid">
+
+      <div class="contact-copy reveal">
+        <p>I'm currently open to conversations about strategy and operations roles,
+           advisory work, and research collaboration. If something here resonates —
+           or if you'd simply like to connect — I'd love to hear from you.</p>
+
+        <div class="contact-links">
+          
+          <a href="https://linkedin.com/in/dpbransby"
+             class="c-link" target="_blank" rel="noopener noreferrer">
+            <div class="c-icon" style="font-size:.75rem;font-weight:800;">in</div>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" action="#" method="POST">
+        <div class="form-field">
+          <label for="cf-name">Name</label>
+          <input type="text"  id="cf-name"  name="name"
+                 placeholder="Your full name" required />
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email"
+                 placeholder="your@email.com" required />
+        </div>
+        <div class="form-field">
+          <label for="cf-msg">Message</label>
+          <textarea           id="cf-msg"   name="message"
+                 placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="btn-send">Send Message</button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ FOOTER -->
+<footer id="footer">
+  <span class="footer-note">© 2026 Derrick Bransby · All rights reserved</span>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════ SCRIPTS -->
+<script>
+  /* Nav scroll effect */
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* Mobile menu */
+  const navLinks = document.getElementById('navLinks');
+  const navBurger = document.getElementById('navBurger');
+
+  function toggleNav() {
+    navLinks.classList.toggle('open');
+    navBurger.classList.toggle('open');
+  }
+
+  function closeNav() {
+    navLinks.classList.remove('open');
+    navBurger.classList.remove('open');
+  }
+
+  /* Scroll reveal */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* Demo form — delete once you configure Formspree */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('cf-name').value;
+    alert(`Thanks, ${name}! Your message has been received. I'll be in touch soon.`);
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
