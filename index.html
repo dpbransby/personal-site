@@ -478,9 +478,15 @@
     #research { background: var(--white); }
 
     .research-intro {
-      font-size: 1rem; color: var(--text);
-      line-height: 1.85; max-width: 680px;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.85;
+      max-width: 680px;
       margin-bottom: 3.5rem;
+    }
+
+    .research-intro + .research-intro {
+      margin-top: -2.5rem;
     }
 
     .research-grid {
@@ -535,6 +541,98 @@
       font-size: .7rem; font-weight: 700;
       letter-spacing: .1em; text-transform: uppercase;
       color: var(--blue); display: inline-block;
+    }
+
+    /* ── AWARD BADGE ──────────────────────────────────────── */
+    .r-award {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      padding: .3rem .85rem;
+      margin-bottom: .6rem;
+      width: fit-content;
+    }
+
+    /* ── SHOW MORE ────────────────────────────────────────── */
+    .r-card-hidden {
+      display: none;
+    }
+
+    .r-card-hidden.revealed {
+      display: block;
+      animation: fadeInUp .4s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .research-footer {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .research-footer-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .btn-see-more {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: .75rem 2rem;
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color .25s, color .25s, transform .25s;
+    }
+
+    .btn-see-more:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    /* ── AFFILIATION ──────────────────────────────────────── */
+    .research-affiliation {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3.5rem;
+    }
+
+    .research-affiliation::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: var(--muted);
+      flex-shrink: 0;
     }
 
     /* ── CONTACT ──────────────────────────────────────────────── */
@@ -1000,8 +1098,14 @@
       problems. My research examines the dynamics that determine whether teams
       succeed under pressure: how work is structured, how people coordinate,
       and how organizations adapt when conditions change. The goal is insight
-      that travels — from the field into practice.
+      that travels — from the field into practice.</p>
+    <p class="research-intro reveal">
+      I am a Research Affiliate at the <a href="https://cil.carey.jhu.edu"
+      target="_blank" rel="noopener noreferrer"
+      style="color:var(--blue); text-decoration:none; font-weight:500;">Johns Hopkins Center for Innovation Leadership</a>.
     </p>
+   
+
 
     <div class="research-grid">
 
@@ -1040,13 +1144,14 @@
         <div class="r-type">Working Paper</div>
         <div class="r-title">Who Do You Want at the Helm? The Effect of Experience on 
           Individuals' Performance in Crisis </div>
+        <div class="r-award">🏆 Best Student Paper · MOC Division, AOM</div>
         <div class="r-authors">With Christopher Myers</div>
         <div class="r-venue">Academy of Management Annual Meeting &middot; 2024</div>
         <!-- <p class="r-desc"></p> -->
         <span class="r-read">Read Paper &rarr;</span>
       </a>
 
-      <a href="https://hbr.org/2024/07/research-new-hires-psychological-safety-erodes-quickly" class="r-card reveal"
+      <a href="https://hbr.org/2024/07/research-new-hires-psychological-safety-erodes-quickly" class="r-card r-card-hidden"
          target="_blank" rel="noopener noreferrer">
         <div class="r-type">Popular Press</div>
         <div class="r-title">Research: New Hires Psychological Safety Erodes Quickly </div>
@@ -1056,7 +1161,7 @@
         <span class="r-read">Read Article &rarr;</span>
       </a>
 
-      <a href="https://doi.org/10.1146/annurev-orgpsych-120920-055217" class="r-card reveal"
+      <a href="https://doi.org/10.1146/annurev-orgpsych-120920-055217" class="r-card r-card-hidden"
          target="_blank" rel="noopener noreferrer">
         <div class="r-type">Journal Article</div>
         <div class="r-title">Psychological Safety Comes of Age: Observed Themes in an Established Literature</div>
@@ -1066,7 +1171,7 @@
         <span class="r-read">Read Paper &rarr;</span>
       </a>
       
-      <a href="https://doi.org/10.1097/HMR.0000000000000370" class="r-card reveal"
+      <a href="https://doi.org/10.1097/HMR.0000000000000370" class="r-card r-card-hidden"
          target="_blank" rel="noopener noreferrer">
         <div class="r-type">Journal Article</div>
         <div class="r-title">A Systematic Review of Respect Between Acute Care Nurses and Physicians</div>
@@ -1077,6 +1182,17 @@
       </a>
 
     </div>
+
+    <!-- See More button -->
+    <div class="research-footer reveal" id="researchFooter">
+      <div class="research-footer-line"></div>
+      <button class="btn-see-more" id="seeMoreBtn"
+              onclick="revealResearch()">
+        See More Research
+      </button>
+      <div class="research-footer-line"></div>
+    </div>
+
   </div>
 </section>
 
@@ -1177,6 +1293,29 @@
       }
     });
   }, { threshold: 0.1 });
+
+  /* See More Research — reveals 4 cards at a time */
+  let revealIndex = 0;
+  const batchSize = 4;
+
+  function revealResearch() {
+    const hiddenCards = document.querySelectorAll('.r-card-hidden:not(.revealed)');
+    const batch = Array.from(hiddenCards).slice(0, batchSize);
+
+    batch.forEach((card, i) => {
+      setTimeout(() => {
+        card.classList.add('revealed');
+      }, i * 100);
+    });
+
+    revealIndex += batch.length;
+
+    /* Hide button if no more cards remain */
+    const remaining = document.querySelectorAll('.r-card-hidden:not(.revealed)');
+    if (remaining.length === 0) {
+      document.getElementById('researchFooter').style.display = 'none';
+    }
+  }
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 </script>
