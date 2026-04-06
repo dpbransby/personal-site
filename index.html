@@ -1257,24 +1257,43 @@
         </div>
       </div>
 
-      <form class="contact-form reveal" id="contactForm"
-            action="https://formspree.io/f/xwvwrrkp" method="POST">
+      <form class="contact-form" id="contactForm"
+       action="https://formspree.io/f/yourcode"
+       method="POST">
+
+        <!-- Keeps user on your site after submission -->
+        <input type="hidden" name="_next"
+              value="https://derrickbransby.com/#contact" />
+
+        <!-- Sets the email subject line -->
+        <input type="hidden" name="_subject"
+              value="New message from derrickbransby.com" />
+
+        <!-- Honeypot spam filter -->
+        <input type="hidden" name="_gotcha"
+              style="display:none" />
+
         <div class="form-field">
           <label for="cf-name">Name</label>
-          <input type="text"  id="cf-name"  name="name"
-                 placeholder="Your full name" required />
+          <input type="text" id="cf-name" name="name"
+                placeholder="Your full name" required />
         </div>
+
         <div class="form-field">
           <label for="cf-email">Email</label>
           <input type="email" id="cf-email" name="email"
-                 placeholder="your@email.com" required />
+                placeholder="your@email.com" required />
         </div>
+
         <div class="form-field">
           <label for="cf-msg">Message</label>
-          <textarea           id="cf-msg"   name="message"
-                 placeholder="What's on your mind?" required></textarea>
+          <textarea id="cf-msg" name="message"
+                    placeholder="What's on your mind?"
+                    required></textarea>
         </div>
+
         <button type="submit" class="btn-send">Send Message</button>
+
       </form>
 
     </div>
