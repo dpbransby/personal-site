@@ -177,7 +177,7 @@
       font-family: var(--serif);
       font-size: clamp(2.4rem, 5.5vw, 4.2rem);
       font-weight: 600;
-      color: rgba(255,255,255,.35);
+      color: rgba(255,255,255,.40);
       line-height: 1.1;
       margin-bottom: 1.75rem;
     }
@@ -233,7 +233,7 @@
     }
 
     /* ── SECTION SHELL ────────────────────────────────────────── */
-    .section       { padding: 7rem 3rem; }
+    .section       { padding: 3rem 3rem; }
     .section-inner { max-width: var(--max); margin: 0 auto; }
 
     .section-label {
@@ -254,7 +254,7 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: 3fr 2fr;
+      grid-template-columns: 3fr 1.25fr;
       gap: 5rem;
       align-items: start;
     }
@@ -271,19 +271,11 @@
       gap: .5rem;
     }
 
+    /* ── ABOUT PHOTO STACK ────────────────────────────────── */
     .about-photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .5rem;
-    }
-
-    .about-photo-main {
-      grid-column: 1 / -1;
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .about-photo-secondary {
@@ -295,6 +287,7 @@
     }
 
     .about-photo-placeholder-sm {
+      width: 100%;
       aspect-ratio: 1 / 1;
       background: var(--bg-alt);
       border: 2px dashed var(--border);
@@ -308,6 +301,45 @@
       font-style: italic;
       text-align: center;
       padding: .75rem;
+    }
+
+    /* ── WHAT I WORK ON ───────────────────────────────────── */
+    .about-work {
+      margin-top: 3rem;
+    }
+
+    .about-work-heading {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.25rem;
+    }
+
+    .about-work-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .about-work-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      font-size: .95rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .about-work-list li::before {
+      content: '';
+      width: 18px;
+      height: 2px;
+      background: var(--blue);
+      flex-shrink: 0;
+      margin-top: .6rem;
     }
 
     /* ── GSAS FEATURE CARD ────────────────────────────────────── */
@@ -852,7 +884,6 @@
   </div>
 </nav>
 
-
 <!-- ══════════════════════════════════════════════════════ HERO -->
 <section id="hero">
   <div class="hero-inner">
@@ -862,16 +893,13 @@
     </p>
 
     <h1 class="hero-name">
-      Connecting how<br>
-      work is <span class="hero-accent">designed</span> with<br>
-      how it gets <span class="hero-accent">done.</span>
+      Building systems that translate strategy into execution.
     </h1>
 
     <p class="hero-tagline">
-      I help organizations build the systems, teams, and capabilities to perform
-      under pressure. My background spans engineering, consulting,
-      and organizational research, with a consistent focus on closing the gap between
-      strategy and execution.
+      I help organizations improve how they execute by building systems, teams, and capabilities 
+      that transform intent into action. My background spans engineering, consulting,
+      and field-based research, with a focus on improving performance.
     </p>
 
     <div class="hero-cta">
@@ -887,35 +915,41 @@
 <section id="about" class="section">
   <div class="section-inner">
 
-    <p class="section-label reveal">About</p>
-    <h2 class="section-title reveal">Engineer. Consultant. Reseacher.</h2>
+    <p class="section-label reveal">About/p>
+    <h2 class="section-title reveal">Engineering to Execution.</h2>
 
     <div class="about-grid">
 
       <div class="about-copy reveal">
-        <p>I started my career as an engineer, trained to solve problems as
-           engineers do: using systems, data, and process. As a consultant,
-           I led dozens of engagements focused on improving performance — retooling
-           systems, rethinking operations, and partnering with executives to
-           deliver change. Over eight years, I built new lines of revenue, managed 
-           teams, and learned to move between the boardroom and the front line.</p>
+        <p>I started my career as an engineer, trained to solve problems using 
+           models and data. As a consultant, I led dozens of engagements focused on 
+           improving performance — rethinking operations, retooling systems,  and 
+           partnering with executives to deliver change. Over eight years, I built new 
+           lines of revenue, led teams, and learned to move between the boardroom 
+          and the front line.</p>
 
         <p>But too often, implementation fell flat. The strategy was clear. 
-           The design was sound. The excitement was real. But somewhere between 
-           idea and outcome, projects stalled. The gap was rarely technical. It 
-           was human. I decided that I wanted to understand <i>why</i> well enough to do 
-           something about it, which led me to Harvard.</p>
-
-        <p>At HBS, I study how teams perform under pressure, exploring the human 
-           and organizational dynamics that shape whether they succeed or fall short. 
-           I do this work in the field, embedded in and alongside the teams
-           and organizations I sutudy, producing insights that are grounded in
-           practice.</p>
-
+           The excitement was real. Still, the best laid plans didn't translate on the 
+           ground. I decided that I wanted to understand <i>why</i> well enough to do 
+           something about it. At Harvard, I studied how teams perform under pressure, 
+           exploring the human and organizational dynamics that shape whether they succeed 
+           or fall short. 
+           
         <p>Now, I'm looking to bring my experience and insight back into industry — 
-           into roles where I can build and scale new functions, work closely with 
+           to roles where I can build and scale new functions, work closely with 
            leadership on high-priority initiatives, and be held accountable for outcomes, 
            not just analysis.</p>
+
+           <!-- What I Work On -->
+        <div class="about-work">
+          <p class="about-work-heading">What I Work On:</p>
+          <ul class="about-work-list">
+            <li>Improving execution in complex, time-constrained environments.</li>
+            <li>Designing operations that balance learning and performance.</li>
+            <li>Building and scaling new functions and capabilities.</li>
+            <li>Translating data and insights into operationl improvements.</li>
+          </ul>
+        </div>
             </div>
 
       <div class="about-right reveal">
@@ -923,7 +957,7 @@
 
           <img src="derrick-bransby.jpg"
                alt="Derrick Bransby"
-               class="about-photo-main" />
+               class="about-photo-secondary" />
 
             <img src="photo-field.jpg"
                  alt="Derrick Bransby fieldwork"
@@ -932,11 +966,8 @@
             <img src="photo-candid.jpg"
                  alt="Derrick Bransby"
                  class="about-photo-secondary" />
-        
-
         </div>
       </div>
-
     </div>
 
     <!-- GSAS Feature card -->
@@ -976,7 +1007,7 @@
   <div class="section-inner">
 
     <p class="section-label reveal">Experience</p>
-    <h2 class="section-title reveal">A career built in the field.</h2>
+    <h2 class="section-title reveal">What I've Built.</h2>
 
     <div class="exp-list">
 
@@ -990,9 +1021,8 @@
           <div class="exp-role">PhD Candidate &amp Researcher</div>
           <p class="exp-desc">
             I designed and led a multi-year field research program focused on how teams solve
-            complex problems, manage innovation, and take, make and experience risk while
-            breaking ground in new territory. My work appears in top academic journals and
-            popular outlets like <i>HBR</i>.
+            complex problems, manage innovation, and take, make and experience risk. My work 
+            appears in top academic journals and popular outlets like <i>HBR</i>.
           </p>
           <div class="tags">
             <span class="tag">Organizational Behavior</span>
@@ -1034,7 +1064,7 @@
         <div>
           <div class="exp-role">Senior Consultant</div>
           <p class="exp-desc">
-            I produced analyses and executive briefings for U.S. Government
+            I produced analyses and briefings for U.S. Government
             clients, synthesizing complex data into decision-ready insights
             for senior officials. I also developed advanced analytical tools to
             identify emerging risks for financial-sector clients.
@@ -1098,7 +1128,7 @@
 
       <!-- ── Recognition ────────────────────────────────────── -->
       <div class="edu-divider reveal">
-        <span class="edu-divider-label">Recognition</span>
+        <span class="edu-divider-label"> Awards &amp Recognition</span>
         <div class="edu-divider-line"></div>
       </div>
 
